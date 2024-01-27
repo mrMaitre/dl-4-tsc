@@ -80,7 +80,7 @@ def create_classifier(classifier_name, input_shape, nb_classes, output_directory
 ############################################### main
 
 # change this directory for your machine
-root_dir = '/dl-4-tsc/'
+root_dir = ''
 
 if sys.argv[1] == 'run_all':
     for classifier_name in CLASSIFIERS:
@@ -98,7 +98,7 @@ if sys.argv[1] == 'run_all':
                 if iter != 0:
                     trr = '_itr_' + str(iter)
 
-                tmp_output_directory = root_dir + '/results/' + classifier_name + '/' + archive_name + trr + '/'
+                tmp_output_directory = root_dir + 'results/' + classifier_name + '/' + archive_name + trr + '/'
 
                 for dataset_name in utils.constants.dataset_names_for_archive[archive_name]:
                     print('\t\t\tdataset_name: ', dataset_name)
@@ -135,7 +135,7 @@ else:
     if itr == '_itr_0':
         itr = ''
 
-    output_directory = root_dir + '/results/' + classifier_name + '/' + archive_name + itr + '/' + \
+    output_directory = root_dir + 'results/' + classifier_name + '/' + archive_name + itr + '/' + \
                        dataset_name + '/'
 
     test_dir_df_metrics = output_directory + 'df_metrics.csv'

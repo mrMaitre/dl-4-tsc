@@ -49,7 +49,7 @@ def create_directory(directory_path):
 
 
 def create_path(root_dir, classifier_name, archive_name):
-    output_directory = root_dir + '/results/' + classifier_name + '/' + archive_name + '/'
+    output_directory = root_dir + 'results/' + classifier_name + '/' + archive_name + '/'
     if os.path.exists(output_directory):
         return None
     else:
@@ -62,7 +62,7 @@ def read_dataset(root_dir, archive_name, dataset_name):
     cur_root_dir = root_dir.replace('-temp', '')
 
     if archive_name == 'mts_archive':
-        file_name = cur_root_dir + '/archives/' + archive_name + '/' + dataset_name + '/'
+        file_name = cur_root_dir + 'archives/' + archive_name + '/' + dataset_name + '/'
         x_train = np.load(file_name + 'x_train.npy')
         y_train = np.load(file_name + 'y_train.npy')
         x_test = np.load(file_name + 'x_test.npy')
@@ -72,7 +72,7 @@ def read_dataset(root_dir, archive_name, dataset_name):
                                        y_test.copy())
 
     elif archive_name == 'UCRArchive_2018':
-        root_dir_dataset = cur_root_dir + '/archives/' + archive_name + '/' + dataset_name + '/'
+        root_dir_dataset = cur_root_dir + 'archives/' + archive_name + '/' + dataset_name
         df_train = pd.read_csv(root_dir_dataset + '/' + dataset_name + '_TRAIN.tsv', sep='\t', header=None)
 
         df_test = pd.read_csv(root_dir_dataset + '/' + dataset_name + '_TEST.tsv', sep='\t', header=None)
@@ -101,7 +101,7 @@ def read_dataset(root_dir, archive_name, dataset_name):
         datasets_dict[dataset_name] = (x_train.copy(), y_train.copy(), x_test.copy(),
                                        y_test.copy())
     else:
-        file_name = cur_root_dir + '/archives/' + archive_name + '/' + dataset_name + '/' + dataset_name
+        file_name = cur_root_dir + 'archives/' + archive_name + '/' + dataset_name + '/' + dataset_name
         x_train, y_train = readucr(file_name + '_TRAIN')
         x_test, y_test = readucr(file_name + '_TEST')
         datasets_dict[dataset_name] = (x_train.copy(), y_train.copy(), x_test.copy(),
@@ -118,7 +118,7 @@ def read_all_datasets(root_dir, archive_name, split_val=False):
     if archive_name == 'mts_archive':
 
         for dataset_name in MTS_DATASET_NAMES:
-            root_dir_dataset = cur_root_dir + '/archives/' + archive_name + '/' + dataset_name + '/'
+            root_dir_dataset = cur_root_dir + 'archives/' + archive_name + '/' + dataset_name
 
             x_train = np.load(root_dir_dataset + 'x_train.npy')
             y_train = np.load(root_dir_dataset + 'y_train.npy')
@@ -129,7 +129,7 @@ def read_all_datasets(root_dir, archive_name, split_val=False):
                                            y_test.copy())
     elif archive_name == 'UCRArchive_2018':
         for dataset_name in DATASET_NAMES_2018:
-            root_dir_dataset = cur_root_dir + '/archives/' + archive_name + '/' + dataset_name + '/'
+            root_dir_dataset = cur_root_dir + 'archives/' + archive_name + '/' + dataset_name
 
             df_train = pd.read_csv(root_dir_dataset + '/' + dataset_name + '_TRAIN.tsv', sep='\t', header=None)
 
@@ -161,7 +161,7 @@ def read_all_datasets(root_dir, archive_name, split_val=False):
 
     else:
         for dataset_name in DATASET_NAMES:
-            root_dir_dataset = cur_root_dir + '/archives/' + archive_name + '/' + dataset_name + '/'
+            root_dir_dataset = cur_root_dir + 'archives/' + archive_name + '/' + dataset_name
             file_name = root_dir_dataset + dataset_name
             x_train, y_train = readucr(file_name + '_TRAIN')
             x_test, y_test = readucr(file_name + '_TEST')
@@ -591,10 +591,10 @@ def viz_cam(root_dir):
     import sklearn
     classifier = 'resnet'
     archive_name = 'UCRArchive_2018'
-    dataset_name = 'GunPoint'
+    dataset_name = 'Computers'
 
-    if dataset_name == 'Gun_Point':
-        save_name = 'GunPoint'
+    if dataset_name == 'Computers':
+        save_name = 'Computers'
     else:
         save_name = dataset_name
     max_length = 2000
@@ -665,5 +665,5 @@ def viz_cam(root_dir):
 
         cbar = plt.colorbar()
         # cbar.ax.set_yticklabels([100,75,50,25,0])
-        plt.savefig(root_dir + '/temp/' + classifier + '-cam-' + save_name + '-class-' + str(int(c)) + '.png',
+        plt.savefig(root_dir + 'temp/' + classifier + '-cam-' + save_name + '-class-' + str(int(c)) + '.png',
                     bbox_inches='tight', dpi=1080)
