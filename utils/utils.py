@@ -2,8 +2,10 @@ from builtins import print
 import numpy as np
 import pandas as pd
 import matplotlib
+import matplotlib.image as mpimg
 
 matplotlib.use('agg')
+matplotlib.use('TkAgg')  # Choisissez le backend qui prend en charge l'affichage interactif
 import matplotlib.pyplot as plt
 
 matplotlib.rcParams['font.family'] = 'sans-serif'
@@ -586,17 +588,11 @@ def viz_for_survey_paper(root_dir, filename='results-ucr-mts.csv'):
     viz_plot(root_dir, df)
 
 
-def viz_cam(root_dir):
+def viz_cam(root_dir,classifier,archive_name,dataset_name):
     import tensorflow.keras as keras
     import sklearn
-    classifier = 'resnet'
-    archive_name = 'UCRArchive_2018'
-    dataset_name = 'Computers'
 
-    if dataset_name == 'Computers':
-        save_name = 'Computers'
-    else:
-        save_name = dataset_name
+    save_name = dataset_name
     max_length = 2000
     datasets_dict = read_dataset(root_dir, archive_name, dataset_name)
 
@@ -656,14 +652,25 @@ def viz_cam(root_dir):
                 f = interp1d(range(ts.shape[1]), cas)
                 cas = f(x).astype(int)
                 plt.scatter(x=x, y=y, c=cas, cmap='jet', marker='.', s=2, vmin=0, vmax=100, linewidths=0.0)
-                if dataset_name == 'Gun_Point':
-                    if c == 1:
-                        plt.yticks([-1.0, 0.0, 1.0, 2.0])
-                    else:
-                        plt.yticks([-2, -1.0, 0.0, 1.0, 2.0])
+                #if dataset_name == 'Gun_Point':
+                # if c == 1:
+                #     plt.yticks([-1.0, 0.0, 1.0, 2.0])
+                # else:
+                #     plt.yticks([-2, -1.0, 0.0, 1.0, 2.0])
                 count += 1
 
         cbar = plt.colorbar()
         # cbar.ax.set_yticklabels([100,75,50,25,0])
-        plt.savefig(root_dir + 'temp/' + classifier + '-cam-' + save_name + '-class-' + str(int(c)) + '.png',
-                    bbox_inches='tight', dpi=1080)
+        img_path=root_dir + 'temp/' + classifier + '-cam-' + save_name + '-class-' + str(int(c)) + '.png'
+        plt.savefig(img_path,bbox_inches='tight', dpi=1080)
+        
+        # Charger l'image
+        img = mpimg.imread(img_path)
+
+        # Afficher l'image
+        plt.imshow(img)
+        plt.axis('off')  # Pour masquer les axes
+        plt.show()
+
+        
+

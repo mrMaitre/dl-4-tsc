@@ -121,7 +121,10 @@ elif sys.argv[1] == 'visualize_filter':
 elif sys.argv[1] == 'viz_for_survey_paper':
     viz_for_survey_paper(root_dir)
 elif sys.argv[1] == 'viz_cam':
-    viz_cam(root_dir)
+    archive_name = sys.argv[2]
+    dataset_name = sys.argv[3]
+    classifier_name = sys.argv[4]
+    viz_cam(root_dir,classifier_name,archive_name,dataset_name)
 elif sys.argv[1] == 'generate_results_csv':
     res = generate_results_csv('results.csv', root_dir)
     print(res.to_string())
