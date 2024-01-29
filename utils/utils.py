@@ -2,10 +2,9 @@ from builtins import print
 import numpy as np
 import pandas as pd
 import matplotlib
-import matplotlib.image as mpimg
+from PIL import Image
 
 matplotlib.use('agg')
-matplotlib.use('TkAgg')  # Choisissez le backend qui prend en charge l'affichage interactif
 import matplotlib.pyplot as plt
 
 matplotlib.rcParams['font.family'] = 'sans-serif'
@@ -664,13 +663,8 @@ def viz_cam(root_dir,classifier,archive_name,dataset_name):
         img_path=root_dir + 'temp/' + classifier + '-cam-' + save_name + '-class-' + str(int(c)) + '.png'
         plt.savefig(img_path,bbox_inches='tight', dpi=1080)
         
-        # Charger l'image
-        img = mpimg.imread(img_path)
-
-        # Afficher l'image
-        plt.imshow(img)
-        plt.axis('off')  # Pour masquer les axes
-        plt.show()
+        img = Image.open(img_path)
+        img.show()
 
         
 
