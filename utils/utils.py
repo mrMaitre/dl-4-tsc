@@ -400,9 +400,9 @@ def save_logs(output_directory, hist, y_pred, y_true, duration, lr=True, y_true_
 
 def visualize_filter(root_dir):
     import tensorflow.keras as keras
-    classifier = 'resnet'
+    classifier = 'fcn'
     archive_name = 'UCRArchive_2018'
-    dataset_name = 'GunPoint'
+    dataset_name = 'Coffee'
     datasets_dict = read_dataset(root_dir, archive_name, dataset_name)
 
     x_train = datasets_dict[dataset_name][0]
@@ -426,7 +426,7 @@ def visualize_filter(root_dir):
     colors = [(255 / 255, 160 / 255, 14 / 255), (181 / 255, 87 / 255, 181 / 255)]
     colors_conv = [(210 / 255, 0 / 255, 0 / 255), (27 / 255, 32 / 255, 101 / 255)]
 
-    idx = 10
+    idx = 8
     idx_filter = 1
 
     filter = filters[:, 0, idx_filter]
@@ -660,7 +660,8 @@ def viz_cam(root_dir,classifier,archive_name,dataset_name):
 
         cbar = plt.colorbar()
         # cbar.ax.set_yticklabels([100,75,50,25,0])
-        img_path=root_dir + 'temp/' + classifier + '-cam-' + save_name + '-class-' + str(int(c)) + '.png'
+        img_path=root_dir + 'temp/' + classifier + '-cam-' + save_name + '-class_' + str(int(c)) + '.png'
+        plt.title(classifier + '-cam-' + save_name + '-class_' + str(int(c)))
         plt.savefig(img_path,bbox_inches='tight', dpi=1080)
         
         img = Image.open(img_path)
